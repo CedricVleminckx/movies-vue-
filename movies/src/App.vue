@@ -1,30 +1,55 @@
 <template>
-
   <div id="app">
-    <header>
-      <nav>
-        <ul>
-          <li><a href="#"></a> </li>
-        </ul>
-      </nav>
-    </header>
     <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App',
-};
+  name: 'App'
+}
 </script>
 
 <style>
+*{
+  margin: 0;
+  padding: 0;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+.nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.nav li {
+    float: left;
+}
+
+.nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.nav li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.nav .active {
+    background-color: #2591ed;
 }
 </style>

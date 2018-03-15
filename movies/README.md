@@ -1,6 +1,6 @@
 # movies
 
-> A Vue.js project
+> labo 5-6
 
 ## Build Setup
 
