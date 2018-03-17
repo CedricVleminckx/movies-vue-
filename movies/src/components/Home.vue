@@ -6,7 +6,7 @@
         <li><a href="#/series">Series</a></li>
         <li><a href="#/movies">Movies</a></li>
         <li><a href="#/favorites">Favorites</a></li>
-        <input type="text" v-model="search" placeholder="Search title.."/>
+        <input class="searchBox" type="text" v-model="search" placeholder="Search media"/>
       </ul>
     </nav>
     <div class="contentAll">
@@ -82,5 +82,17 @@ export default {
 }
 .nav .active {
     background-color: #2591ed;
+}
+.searchBox{
+  float: right;
+  font-size: 16px;
+  width: 200px;
+  height: 46px;
+  border: none;
+}
+.searchBox:focus{
+  height: 44px;
+  border: none;
+  border-bottom: solid #2591ed;
 }
 </style>
