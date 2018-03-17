@@ -15,6 +15,9 @@ export default {
   margin: 0;
   padding: 0;
 }
+body{
+  background-color: #eeeeee;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -48,8 +51,10 @@ export default {
 .nav li a:hover:not(.active) {
     background-color: #111;
 }
-
-.nav .active {
-    background-color: #2591ed;
+.movie{
+  border-bottom: solid #31d51d;
+}
+.serie{
+  border-bottom: solid #ed2525;
 }
 </style>
