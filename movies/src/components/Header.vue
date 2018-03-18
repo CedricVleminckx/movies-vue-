@@ -20,7 +20,7 @@ export default {
   props: {
     active: {
       type: String,
-      required: true
+      required: false
     }
   },
   computed: {
@@ -45,17 +45,5 @@ export default {
 }
 .nav .activeF {
     background-color: #e4e227;
-}
-.searchBox{
-  float: right;
-  font-size: 16px;
-  width: 200px;
-  height: 46px;
-  border: none;
-}
-.searchBox:focus{
-  height: 44px;
-  border: none;
-  border-bottom: solid #2591ed;
 }
 </style>

@@ -57,4 +57,38 @@ body{
 .serie{
   border-bottom: solid #ed2525;
 }
+.contentAll{
+  width: 70%;
+  margin: auto;
+  margin-top: 40px;
+}
+.contentAll a{
+  text-decoration: none;
+  color: #333;
+}
+.content{
+ width: 33%;
+ float: left;
+ margin-top: 30px;
+}
+.content h2{
+  text-align: center;
+}
+.content img{
+  width: 70%;
+  height: 280px;
+  margin-left: 15%;
+}
+.searchBox{
+  float: right;
+  font-size: 16px;
+  width: 200px;
+  height: 46px;
+  border: none;
+}
+.searchBox:focus{
+  height: 44px;
+  border: none;
+  border-bottom: solid #2591ed;
+}
 </style>
