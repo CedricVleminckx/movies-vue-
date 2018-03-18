@@ -48,7 +48,7 @@ body{
     text-decoration: none;
 }
 
-.nav li a:hover:not(.active) {
+.nav li a:hover {
     background-color: #111;
 }
 .movie{
