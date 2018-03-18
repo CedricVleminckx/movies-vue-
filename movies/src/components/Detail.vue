@@ -8,7 +8,7 @@
         <h2>{{results.name}}</h2>
         <p>{{results.genre}} | {{results.type}} | {{results.duration}} min |
           <a :href="getUrl(results.id)" v-on:click="unFavorite" v-if='results.favorite === "true"'><i class="material-icons" style="color:#e4e227;">favorite</i></a>
-          <a href="#" v-else><i class="material-icons" style="color:grey;">favorite</i></a></p>
+          <a :href="getUrl(results.id)" v-else v-on:click="Favorite"><i class="material-icons" style="color:grey;">favorite</i></a></p>
         <p id="description">{{results.description}}</p>
       </div>
     </div>
@@ -46,6 +46,11 @@ export default {
     },
     unFavorite(){
       axios.post('http://localhost/www/api/public/update/' + this.$route.params.id, { favorite: 'false' })
+        .then(function(response){
+      })
+    },
+    Favorite(){
+      axios.post('http://localhost/www/api/public/update/' + this.$route.params.id, { favorite: 'true' })
         .then(function(response){
       })
     }
