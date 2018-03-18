@@ -1,15 +1,8 @@
 <template>
   <div class="pageContent">
-    <nav class="nav">
-      <ul>
-        <li><a id="home" href="/">Home</a></li>
-        <li><a href="#/series">Series</a></li>
-        <li><a href="#/movies">Movies</a></li>
-        <li><a href="#/favorites" class="active">Favorites</a></li>
-      </ul>
-    </nav>
+    <Header :active="active" @update="getHeaderSearch"/>
     <div class="contentAll">
-      <div class="content" v-for="media in results" v-if="media.favorite === 'true'" :key="media.index">
+      <div class="content" v-for="media in SearchMedia" v-if="media.favorite === 'true'" :key="media.index">
         <img class="movie" v-if="media.type === 'movie'" :src="getPic(media.img)" alt="">
         <img class="serie" v-if="media.type === 'serie'" :src="getPic(media.img)" alt="">
         <h2>{{ media.name }}</h2>
@@ -20,11 +13,17 @@
 
 <script>
 import axios from 'axios'
+import Header from './header.vue'
 export default {
   name: 'Favorites',
+  components:{
+    Header
+  },
   data () {
     return {
-      results: []
+      results: [],
+      search: '',
+      active: "favorite"
     }
   },
   mounted () {
@@ -38,6 +37,16 @@ export default {
     },
     getPic (img) {
       return require('../assets/' + img)
+    },
+    getHeaderSearch(value){
+      this.search = value
+    }
+  },
+  computed: {
+    SearchMedia() {
+      return this.results.filter(media => {
+        return media.name.toLowerCase().includes(this.search.toLowerCase())
+      })
     }
   }
 }
@@ -62,8 +71,5 @@ export default {
   width: 70%;
   height: 280px;
   margin-left: 15%;
-}
-.nav .active {
-    background-color: #e4e227;
 }
 </style>

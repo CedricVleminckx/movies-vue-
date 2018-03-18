@@ -1,11 +1,11 @@
 <template>
   <div class="pageContent">
-    <Header :active="active" @update="testM"/>
+    <Header :active="active" @update="getHeaderSearch"/>
     <div class="contentAll">
       <div class="content" v-for="media in SearchMedia" :key="media.index">
         <img class="movie" v-if="media.type === 'movie'" :src="getPic(media.img)" alt="">
         <img class="serie" v-if="media.type === 'serie'" :src="getPic(media.img)" alt="">
-        <h2>{{ test }}</h2>
+        <h2>{{ media.name }}</h2>
       </div>
       <button v-on:click="filter">filter</button>
     </div>
@@ -24,7 +24,6 @@ export default {
     return {
       results: [],
       search: '',
-      test: 'test',
       active: "header"
     }
   },
@@ -47,8 +46,8 @@ export default {
           return 0;
       })
     },
-    testM(value){
-      this.test = value
+    getHeaderSearch(value){
+      this.search = value
     }
   },
   computed: {
@@ -80,9 +79,6 @@ export default {
   width: 70%;
   height: 280px;
   margin-left: 15%;
-}
-.nav .active {
-    background-color: #2591ed;
 }
 .searchBox{
   float: right;

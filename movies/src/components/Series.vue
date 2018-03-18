@@ -1,14 +1,6 @@
 <template>
   <div class="pageContent">
-    <nav class="nav">
-      <ul>
-        <li><a id="home" href="/">Home</a></li>
-        <li><a href="#/series"  class="active">Series</a></li>
-        <li><a href="#/movies">Movies</a></li>
-        <li><a href="#/favorites">Favorites</a></li>
-        <input class="searchBox" type="text" v-model="search" placeholder="Search media"/>
-      </ul>
-    </nav>
+    <Header :active="active" @update="getHeaderSearch"/>
     <div class="contentAll">
       <div class="content" v-for="media in SearchMedia" v-if="media.type === 'serie'" :key="media.index">
         <img class="movie" v-if="media.type === 'movie'" :src="getPic(media.img)" alt="">
@@ -21,12 +13,17 @@
 
 <script>
 import axios from 'axios'
+import Header from './header.vue'
 export default {
   name: 'Series',
+  components:{
+    Header
+  },
   data () {
     return {
       results: [],
-      search: ''
+      search: '',
+      active: "serie"
     }
   },
   mounted () {
@@ -40,6 +37,9 @@ export default {
     },
     getPic (img) {
       return require('../assets/' + img)
+    },
+    getHeaderSearch(value){
+      this.search = value
     }
   },
   computed: {
@@ -71,9 +71,6 @@ export default {
   width: 70%;
   height: 280px;
   margin-left: 15%;
-}
-.nav .active {
-    background-color: #ed2525;
 }
 .searchBox{
   float: right;
