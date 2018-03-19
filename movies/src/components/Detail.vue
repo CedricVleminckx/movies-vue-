@@ -38,7 +38,7 @@ export default {
   methods: {
     getMedia (id) {
       console.log(id);
-      axios.get('http://localhost/www/api/public/media/' + id)
+      axios.get('http://cedricvleminckx.ikdoeict.be/media/' + id)
         .then(response => {
           this.results = response.data
           this.isfavorite = this.results.favorite
@@ -56,20 +56,20 @@ export default {
     },
     unFavorite(){
       this.isfavorite = 'false'
-      axios.post('http://localhost/www/api/public/update/' + this.$route.params.id, { favorite: 'false' })
+      axios.post('http://cedricvleminckx.ikdoeict.be/update/' + this.$route.params.id, { favorite: 'false' })
         .then(function(response){
       })
     },
     Favorite(){
       this.isfavorite = 'true'
-      axios.post('http://localhost/www/api/public/update/' + this.$route.params.id, { favorite: 'true' })
+      axios.post('http://cedricvleminckx.ikdoeict.be/update/' + this.$route.params.id, { favorite: 'true' })
         .then(function(response){
       })
     },
     deleteClick(){
       let r = confirm("Are you sure you wan't to delete this?");
       if (r == true) {
-        axios.post('http://localhost/www/api/public/delete/' + this.$route.params.id)
+        axios.post('http://cedricvleminckx.ikdoeict.be/delete/' + this.$route.params.id)
           .then(response => {
             this.$router.push('/')
         })

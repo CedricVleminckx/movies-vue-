@@ -62,7 +62,7 @@ export default {
   methods: {
     getMedia (id) {
       console.log(id);
-      axios.get('http://localhost/www/api/public/media/' + id)
+      axios.get('http://cedricvleminckx.ikdoeict.be/media/' + id)
         .then(response => {
           this.results = response.data
         })
@@ -72,7 +72,7 @@ export default {
       return require('../assets/' + img)
     },
     editClick(){
-      axios.post('http://localhost/www/api/public/update/' + this.$route.params.id, {
+      axios.post('http://cedricvleminckx.ikdoeict.be/update/' + this.$route.params.id, {
         name: this.results.name,
         description: this.results.description,
         genre: this.results.genre,

@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     getMovies () {
-      axios.get('http://localhost/www/api/public/media')
+      axios.get('http://cedricvleminckx.ikdoeict.be/media')
         .then(response => { this.results = response.data })
         .catch(error => { console.log(error) })
     },

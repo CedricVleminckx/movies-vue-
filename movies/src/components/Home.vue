@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     getMedia () {
-      axios.get('http://localhost/www/api/public/media')
+      axios.get('http://cedricvleminckx.ikdoeict.be/media')
         .then(response => { this.results = response.data })
         .catch(error => { console.log(error) })
     },
@@ -51,7 +51,7 @@ export default {
       })
     },
     apiUpdate(){
-      axios.post('http://localhost/www/api/public/update', { name: 'The cloverfield paradox' })
+      axios.post('http://cedricvleminckx.ikdoeict.be/update', { name: 'The cloverfield paradox' })
         .then(function(response){
       console.log('saved successfully')
       })
