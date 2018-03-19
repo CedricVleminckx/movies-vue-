@@ -5,6 +5,7 @@ import Series from '@/components/Series'
 import Movies from '@/components/Movies'
 import Favorites from '@/components/Favorites'
 import Detail from '@/components/Detail'
+import Edit from '@/components/Edit'
 
 Vue.use(Router)
 export default new Router({
@@ -33,6 +34,11 @@ export default new Router({
       path: '/detail/:id',
       name: 'Detail',
       component: Detail
+    },
+    {
+      path: '/edit/:id',
+      name: 'Edit',
+      component: Edit
     }
   ]
 })

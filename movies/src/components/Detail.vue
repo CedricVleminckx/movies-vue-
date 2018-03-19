@@ -11,8 +11,9 @@
           <a :href="getUrl(results.id)" v-on:click="Favorite" v-else><i class="material-icons">favorite</i></a>
         </p>
         <p id="description">{{results.description}}</p>
-        <p>{{ isfavorite }}</p>
       </div>
+      <p class="button"><a :href="getUrl(results.id)">Edit</a></p>
+      <p class="button delete"><a href="#">Delete</a></p>
     </div>
   </div>
 </template>
@@ -45,7 +46,7 @@ export default {
         .catch(error => { console.log(error) })
     },
     getUrl(id){
-      return '#/detail/'+id
+      return '#/edit/' + id
     },
     getPic (img) {
       return require('../assets/' + img)
@@ -79,5 +80,25 @@ img{
 }
 #description{
   margin-top: 40px;
+}
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    margin-top: 65px;
+    cursor: pointer;
+}
+.button a{
+  text-decoration: none;
+  color: white;
+}
+.delete{
+  background-color: #f44336;
 }
 </style>
