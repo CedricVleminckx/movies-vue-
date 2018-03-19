@@ -38,7 +38,7 @@
       </div>
 
       <p class="button" v-on:click="editClick"><a>Save</a></p>
-      <p class="button delete"><a href="#">Cancel</a></p>
+      <p class="button delete" v-on:click="cancelClick"><a href="#">Cancel</a></p>
     </div>
   </div>
 </template>
@@ -65,7 +65,6 @@ export default {
       axios.get('http://localhost/www/api/public/media/' + id)
         .then(response => {
           this.results = response.data
-
         })
         .catch(error => { console.log(error) })
     },
@@ -80,9 +79,12 @@ export default {
         type: this.results.type,
         duration: this.results.duration,
         favorite: this.results.favorite
+      }).then(response => {
+        this.$router.push('/detail/' + this.results.id)
       })
-        .then(function(response){
-      })
+    },
+    cancelClick(){
+      this.$router.push('/detail/' + this.results.id)
     }
   }
 }

@@ -7,13 +7,13 @@
         <img :src="getPic(results.img)" alt="">
         <h2>{{results.name}}</h2>
         <p>{{results.genre}} | {{results.type}} | {{results.duration}} min |
-          <a :href="getUrl(results.id)" v-on:click="unFavorite" v-if='isfavorite === "true"'><i class="material-icons" style='color: #e4e227'>favorite</i></a>
-          <a :href="getUrl(results.id)" v-on:click="Favorite" v-else><i class="material-icons">favorite</i></a>
+          <a :href="getUrlFavo(results.id)" v-on:click="unFavorite" v-if='isfavorite === "true"'><i class="material-icons" style='color: #e4e227'>favorite</i></a>
+          <a :href="getUrlFavo(results.id)" v-on:click="Favorite" v-else><i class="material-icons">favorite</i></a>
         </p>
         <p id="description">{{results.description}}</p>
       </div>
-      <p class="button"><a :href="getUrl(results.id)">Edit</a></p>
-      <p class="button delete"><a href="#">Delete</a></p>
+      <p class="button"><a :href="getUrlEdit(results.id)">Edit</a></p>
+      <p class="button delete"><a href="#" v-on:click="deleteClick">Delete</a></p>
     </div>
   </div>
 </template>
@@ -45,7 +45,10 @@ export default {
         })
         .catch(error => { console.log(error) })
     },
-    getUrl(id){
+    getUrlFavo(id){
+      return '#/detail/' + id
+    },
+    getUrlEdit(id){
       return '#/edit/' + id
     },
     getPic (img) {
@@ -62,6 +65,15 @@ export default {
       axios.post('http://localhost/www/api/public/update/' + this.$route.params.id, { favorite: 'true' })
         .then(function(response){
       })
+    },
+    deleteClick(){
+      let r = confirm("Are you sure you wan't to delete this?");
+      if (r == true) {
+        axios.post('http://localhost/www/api/public/delete/' + this.$route.params.id)
+          .then(response => {
+            this.$router.push('/')
+        })
+      }
     }
   }
 }
@@ -93,6 +105,7 @@ img{
     margin: 4px 2px;
     margin-top: 65px;
     cursor: pointer;
+    float: right;
 }
 .button a{
   text-decoration: none;
