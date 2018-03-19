@@ -1,6 +1,6 @@
 <template>
   <div class="pageContent">
-    <Header :active="active" @update="getHeaderSearch"/>
+    <Header :active="active" :isSearch="isSearch" @update="getHeaderSearch"/>
     <div class="contentAll">
       <div class="content" v-for="media in SearchMedia" :key="media.index">
         <a :href="getUrl(media.id)"><img class="movie" v-if="media.type === 'movie'" :src="getPic(media.img)" alt=""></a>
@@ -24,7 +24,8 @@ export default {
     return {
       results: [],
       search: '',
-      active: "header"
+      active: "header",
+      isSearch: 'true'
     }
   },
   mounted () {

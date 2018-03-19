@@ -5,7 +5,7 @@
         <li><a v-if="active === 'serie'" href="#/series" class="activeS">Series</a><a v-else href="#/series">Series</a></li>
         <li><a v-if="active === 'movie'" href="#/movies" class="activeM">Movies</a><a v-else href="#/movies">Movies</a></li>
         <li><a v-if="active === 'favorite'" href="#/favorites" class="activeF">Favorites</a><a v-else href="#/favorites">Favorites</a></li>
-        <input class="searchBox" v-on="listen" type="text" v-model="search" placeholder="Search media"/>
+        <input v-if="isSearch === 'true'" class="searchBox" v-on="listen" type="text" v-model="search" placeholder="Search media"/>
       </ul>
     </nav>
 </template>
@@ -19,6 +19,10 @@ export default {
   },
   props: {
     active: {
+      type: String,
+      required: false
+    },
+    isSearch: {
       type: String,
       required: false
     }
