@@ -15,6 +15,13 @@
       <p class="button"><a :href="getUrlEdit(results.id)">Edit</a></p>
       <p class="button delete"><a href="#" v-on:click="deleteClick">Delete</a></p>
     </div>
+    <div class="randoms">
+      <div class="contentRandoms" v-for="random in randomFiltered">
+        <a :href="getUrl(random.id)" v-on:click="reload"><img class="movie" v-if="random.type === 'movie'" :src="getPic(random.img)" alt=""></a>
+        <a :href="getUrl(random.id)" v-on:click="reload"><img class="serie" v-if="random.type === 'serie'" :src="getPic(random.img)" alt=""></a>
+        <h2><a :href="getUrl(random.id)">{{ random.name }}</a></h2>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -29,11 +36,13 @@ export default {
   data () {
     return {
       results: [],
+      resultsRandom: [],
       isfavorite: ''
     }
   },
   mounted () {
     this.getMedia(this.$route.params.id)
+    this.getMediaRandom()
   },
   methods: {
     getMedia (id) {
@@ -43,6 +52,18 @@ export default {
           this.isfavorite = this.results.favorite
         })
         .catch(error => { console.log(error) })
+    },
+    getMediaRandom () {
+      axios.get('http://cedricvleminckx.ikdoeict.be/random')
+        .then(response => {
+          this.resultsRandom = response.data
+        })
+    },
+    getPic (img) {
+      return require('../assets/' + img)
+    },
+    getUrl (id) {
+      return '#/detail/' + id
     },
     getUrlFavo (id) {
       return '#/detail/' + id
@@ -73,6 +94,14 @@ export default {
             this.$router.push('/')
           })
       }
+    },
+    reload() {
+      location.reload();
+    }
+  },
+  computed: {
+    randomFiltered () {
+      return this.resultsRandom.slice(0, 3)
     }
   }
 }
@@ -112,5 +141,27 @@ img{
 }
 .delete{
   background-color: #f44336;
+}
+.randoms{
+  display: inline-block;
+  width: 70%;
+  margin-top: 100px;
+  margin-left: 15%;
+}
+.contentRandoms{
+  width: 33%;
+  float: left;
+}
+.contentRandoms a{
+  text-decoration: none;
+  color: #333;
+}
+.contentRandoms h2{
+  text-align: center;
+}
+.contentRandoms img{
+  width: 220px;
+  height: 280px;
+  margin-left: 15%;
 }
 </style>
