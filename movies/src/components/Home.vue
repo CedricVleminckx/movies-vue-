@@ -56,12 +56,6 @@ export default {
         return 0
       })
     },
-    apiUpdate () {
-      axios.post('http://cedricvleminckx.ikdoeict.be/update', { name: 'The cloverfield paradox' })
-        .then(function (response) {
-          console.log('saved successfully')
-        })
-    },
     getHeaderSearch (value) {
       this.search = value
     },
