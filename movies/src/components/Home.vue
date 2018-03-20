@@ -17,14 +17,14 @@ import axios from 'axios'
 import Header from './header.vue'
 export default {
   name: 'Home',
-  components:{
+  components: {
     Header
   },
   data () {
     return {
       results: [],
       search: '',
-      active: "header",
+      active: 'header',
       isSearch: 'true'
     }
   },
@@ -40,28 +40,28 @@ export default {
     getPic (img) {
       return require('../assets/' + img)
     },
-    getUrl(id){
-      return '#/detail/'+id
+    getUrl (id) {
+      return '#/detail/' + id
     },
-    filter(){
-      this.results.sort(function(a, b){
-          if(a.name < b.name) return -1;
-          if(a.name > b.name) return 1;
-          return 0;
+    filter () {
+      this.results.sort(function (a, b) {
+        if (a.name < b.name) return -1
+        if (a.name > b.name) return 1
+        return 0
       })
     },
-    apiUpdate(){
+    apiUpdate () {
       axios.post('http://cedricvleminckx.ikdoeict.be/update', { name: 'The cloverfield paradox' })
-        .then(function(response){
-      console.log('saved successfully')
-      })
+        .then(function (response) {
+          console.log('saved successfully')
+        })
     },
-    getHeaderSearch(value){
+    getHeaderSearch (value) {
       this.search = value
     }
   },
   computed: {
-    SearchMedia() {
+    SearchMedia () {
       return this.results.filter(media => {
         return media.name.toLowerCase().includes(this.search.toLowerCase())
       })

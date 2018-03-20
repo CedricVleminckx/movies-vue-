@@ -23,7 +23,7 @@ import axios from 'axios'
 import Header from './header.vue'
 export default {
   name: 'Detail',
-  components:{
+  components: {
     Header
   },
   data () {
@@ -37,7 +37,6 @@ export default {
   },
   methods: {
     getMedia (id) {
-      console.log(id);
       axios.get('http://cedricvleminckx.ikdoeict.be/media/' + id)
         .then(response => {
           this.results = response.data
@@ -45,34 +44,34 @@ export default {
         })
         .catch(error => { console.log(error) })
     },
-    getUrlFavo(id){
+    getUrlFavo (id) {
       return '#/detail/' + id
     },
-    getUrlEdit(id){
+    getUrlEdit (id) {
       return '#/edit/' + id
     },
     getPic (img) {
       return require('../assets/' + img)
     },
-    unFavorite(){
+    unFavorite () {
       this.isfavorite = 'false'
       axios.post('http://cedricvleminckx.ikdoeict.be/update/' + this.$route.params.id, { favorite: 'false' })
-        .then(function(response){
-      })
+        .then(function (response) {
+        })
     },
-    Favorite(){
+    Favorite () {
       this.isfavorite = 'true'
       axios.post('http://cedricvleminckx.ikdoeict.be/update/' + this.$route.params.id, { favorite: 'true' })
-        .then(function(response){
-      })
+        .then(function (response) {
+        })
     },
-    deleteClick(){
-      let r = confirm("Are you sure you wan't to delete this?");
-      if (r == true) {
+    deleteClick () {
+      let r = confirm("Are you sure you wan't to delete this?")
+      if (r === true) {
         axios.post('http://cedricvleminckx.ikdoeict.be/delete/' + this.$route.params.id)
           .then(response => {
             this.$router.push('/')
-        })
+          })
       }
     }
   }

@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'App',
+  name: 'App'
 }
 </script>
 
@@ -60,7 +60,7 @@ body{
 .contentAll{
   width: 70%;
   margin: auto;
-  margin-top: 40px;
+  margin-top: 60px;
 }
 .contentAll a{
   text-decoration: none;

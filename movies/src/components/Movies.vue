@@ -16,14 +16,14 @@ import axios from 'axios'
 import Header from './header.vue'
 export default {
   name: 'Movies',
-  components:{
+  components: {
     Header
   },
   data () {
     return {
       results: [],
       search: '',
-      active: "movie",
+      active: 'movie',
       isSearch: 'true'
     }
   },
@@ -39,15 +39,15 @@ export default {
     getPic (img) {
       return require('../assets/' + img)
     },
-    getUrl(id){
-      return '#/detail/'+id
+    getUrl (id) {
+      return '#/detail/' + id
     },
-    getHeaderSearch(value){
+    getHeaderSearch (value) {
       this.search = value
     }
   },
   computed: {
-    SearchMedia() {
+    SearchMedia () {
       return this.results.filter(media => {
         return media.name.toLowerCase().includes(this.search.toLowerCase())
       })

@@ -28,7 +28,7 @@ export default {
     }
   },
   computed: {
-    listen(){
+    listen () {
       this.$emit('update', this.search)
     }
   }

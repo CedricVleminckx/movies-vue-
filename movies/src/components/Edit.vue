@@ -48,7 +48,7 @@ import axios from 'axios'
 import Header from './header.vue'
 export default {
   name: 'Detail',
-  components:{
+  components: {
     Header
   },
   data () {
@@ -61,7 +61,6 @@ export default {
   },
   methods: {
     getMedia (id) {
-      console.log(id);
       axios.get('http://cedricvleminckx.ikdoeict.be/media/' + id)
         .then(response => {
           this.results = response.data
@@ -71,7 +70,7 @@ export default {
     getPic (img) {
       return require('../assets/' + img)
     },
-    editClick(){
+    editClick () {
       axios.post('http://cedricvleminckx.ikdoeict.be/update/' + this.$route.params.id, {
         name: this.results.name,
         description: this.results.description,
@@ -83,7 +82,7 @@ export default {
         this.$router.push('/detail/' + this.results.id)
       })
     },
-    cancelClick(){
+    cancelClick () {
       this.$router.push('/detail/' + this.results.id)
     }
   }
