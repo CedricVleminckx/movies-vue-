@@ -3,7 +3,7 @@
     <i v-if="isList" v-on:click="isList = !isList" class="material-icons">view_module</i>
     <i v-if="!isList" v-on:click="isList = !isList" class="material-icons">list</i>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <Header :active="active" :isSearch="isSearch" :isFilter="isFilter" @update="getHeaderSearch" @filter="filter"/>
+    <Header :active="active" :isSearch="isSearch" :isFilter="isFilter" @update="getHeaderSearch" @filter="filter"  @genre="filterGenre"/>
     <div class="contentAll">
       <div class="content"  v-bind:class="{ active: isList }" v-for="media in SearchMedia" v-if="media.type === 'movie'" :key="media.index">
         <a :href="getUrl(media.id)"><img class="movie" v-if="media.type === 'movie'" :src="getPic(media.img)" alt=""></a>
@@ -28,6 +28,7 @@ export default {
   data () {
     return {
       results: [],
+      resultsBack: [],
       search: '',
       active: 'movie',
       isSearch: true,
@@ -41,7 +42,8 @@ export default {
   methods: {
     getMovies () {
       axios.get('http://cedricvleminckx.ikdoeict.be/media')
-        .then(response => { this.results = response.data })
+        .then(response => { this.results = response.data
+        this.resultsBack = response.data })
         .catch(error => { console.log(error) })
     },
     getPic (img) {
@@ -79,6 +81,23 @@ export default {
         })
       }
     },
+    filterGenre (genre) {
+      if (genre === 'Action') {
+        this.results = this.resultsBack.filter(function (p) { return p.genre == genre })
+      }
+      else if (genre === 'Animation') {
+        this.results = this.resultsBack.filter(function (p) { return p.genre == genre })
+      }
+      else if (genre === 'Comedy') {
+        this.results = this.resultsBack.filter(function (p) { return p.genre == genre })
+      }
+      else if (genre === 'Thriller') {
+        this.results = this.resultsBack.filter(function (p) { return p.genre == genre })
+      }
+      else if (genre === 'All') {
+        this.results = this.resultsBack
+      }
+    }
   },
   computed: {
     SearchMedia () {

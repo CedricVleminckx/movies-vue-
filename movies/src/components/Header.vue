@@ -12,6 +12,14 @@
           <option value="za">z - a</option>
           <option value="fav">Favorite first</option>
         </select>
+        <select v-if="isFilter" v-on="listenGenre" v-model="genre">
+          <option value="" disabled selected>Select a genre</option>
+          <option value="All">All genres</option>
+          <option value="Action">Action</option>
+          <option value="Animation">Animation</option>
+          <option value="Comedy">Comedy</option>
+          <option value="Thriller">Thriller</option>
+        </select>
       </ul>
     </nav>
 </template>
@@ -21,7 +29,8 @@ export default {
   data () {
     return {
       search: '',
-      filter: ''
+      filter: '',
+      genre: ''
     }
   },
   props: {
@@ -44,6 +53,9 @@ export default {
     },
     listenFilter () {
       this.$emit('filter', this.filter)
+    },
+    listenGenre () {
+      this.$emit('genre', this.genre)
     }
   }
 }
