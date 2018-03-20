@@ -83,7 +83,7 @@ body{
   float: right;
   font-size: 16px;
   width: 200px;
-  height: 46px;
+  height: 46.5px;
   border: none;
 }
 .searchBox:focus{

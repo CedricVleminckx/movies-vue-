@@ -3,7 +3,7 @@
     <i v-if="isList" v-on:click="isList = !isList" class="material-icons">view_module</i>
     <i v-if="!isList" v-on:click="isList = !isList" class="material-icons">list</i>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <Header :active="active" :isSearch="isSearch" @update="getHeaderSearch"/>
+    <Header :active="active" :isSearch="isSearch" :isFilter="isFilter" @update="getHeaderSearch" @filter="filter"/>
     <div class="contentAll">
       <div class="content" v-bind:class="{ active: isList }" v-for="media in SearchMedia" v-if="media.type === 'serie'" :key="media.index">
         <a :href="getUrl(media.id)"><img class="movie" v-if="media.type === 'movie'" :src="getPic(media.img)" alt=""></a>
@@ -30,7 +30,8 @@ export default {
       results: [],
       search: '',
       active: 'serie',
-      isSearch: 'true',
+      isSearch: true,
+      isFilter: true,
       isList: false
     }
   },
@@ -54,7 +55,30 @@ export default {
     },
     getDescription (str) {
       return str.substring(0, 300) + '...'
-    }
+    },
+    filter (value) {
+      if (value === 'az'){
+        this.results.sort(function (a, b) {
+          if (a.name < b.name) return -1
+          if (a.name > b.name) return 1
+          return 0
+        })
+      }
+      else if (value === 'za') {
+        this.results.sort(function (a, b) {
+          if (a.name < b.name) return 1
+          if (a.name > b.name) return -1
+          return 0
+        })
+      }
+      else if (value === 'fav') {
+        this.results.sort(function (a, b) {
+          if (a.favorite < b.favorite) return 1
+          if (a.favorite > b.favorite) return -1
+          return 0
+        })
+      }
+    },
   },
   computed: {
     SearchMedia () {
