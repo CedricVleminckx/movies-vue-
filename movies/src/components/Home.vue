@@ -13,7 +13,6 @@
         <p v-if="isList">{{getDescription(media.description)}}</p>
         <a :href="getUrl(media.id)" v-if="isList" class="button">Read more</a>
       </div>
-      <button v-on:click="filter">filter</button>
     </div>
   </div>
 </template>
