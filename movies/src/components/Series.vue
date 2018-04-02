@@ -1,17 +1,28 @@
 <template>
   <div class="pageContent">
-    <i v-if="isList" v-on:click="isList = !isList" class="material-icons">view_module</i>
-    <i v-if="!isList" v-on:click="isList = !isList" class="material-icons">list</i>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <Header :active="active" :isSearch="isSearch" :isFilter="isFilter" @update="getHeaderSearch" @filter="filter"  @genre="filterGenre"/>
     <div class="contentAll">
-      <div class="content" v-bind:class="{ active: isList }" v-for="media in SearchMedia" v-if="media.type === 'serie'" :key="media.index">
-        <a :href="getUrl(media.id)"><img class="movie" v-if="media.type === 'movie'" :src="getPic(media.img)" alt=""></a>
-        <a :href="getUrl(media.id)"><img class="serie" v-if="media.type === 'serie'" :src="getPic(media.img)" alt=""></a>
-        <h2><a :href="getUrl(media.id)">{{ media.name }}</a></h2>
-        <p v-if="isList">{{media.genre}} | {{media.type}} | {{media.duration}} min</p>
-        <p v-if="isList">{{getDescription(media.description)}}</p>
-        <a :href="getUrl(media.id)" v-if="isList" class="button">Read more</a>
+      <div class="content" v-for="media in SearchMedia" v-if="media.type === 'serie'" :key="media.index">
+        <md-card>
+          <md-card-media>
+            <a :href="getUrl(media.id)"><img class="serie" v-if="media.type === 'serie'" :src="getPic(media.img)" alt=""></a>
+          </md-card-media>
+
+          <md-card-header>
+            <div class="md-title"><a :href="getUrl(media.id)">{{ media.name }}</a></div>
+          </md-card-header>
+
+          <md-card-expand>
+            <md-card-actions md-alignment="space-between">
+              <div>
+                <md-button class="md-icon-button">
+                  <md-icon>favorite</md-icon>
+                </md-button>
+              </div>
+              <md-button :href="getUrl(media.id)">Read more</md-button>
+            </md-card-actions>
+          </md-card-expand>
+        </md-card>
       </div>
     </div>
   </div>
@@ -19,20 +30,13 @@
 
 <script>
 import axios from 'axios'
-import Header from './header.vue'
 export default {
   name: 'Series',
-  components: {
-    Header
-  },
   data () {
     return {
       results: [],
       resultsBack: [],
       search: '',
-      active: 'serie',
-      isSearch: true,
-      isFilter: true,
       isList: false
     }
   },
@@ -111,47 +115,21 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.active{
-  width: 100%;
-  float: none;
-  display: inline-block;
-}
-.active img{
-  width: 20%;
-  height: 200px;
-  margin-left: 0;
-  float: left;
+.md-card {
+  width: 250px;
+  min-height: 450px;s
+  margin:4px;
   margin-right: 20px;
-}
-.active h2{
-  text-align: left;
-  margin-bottom: 10px;
-}
-.active p+p{
   margin-top: 20px;
+  display: inline-block;
+  vertical-align: top;
+  float: left;
 }
-.button {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 10px 25px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    float: right;
+.md-card img{
+  height: 250px;
 }
-.button a{
+.md-title a{
   text-decoration: none;
-  color: white;
-}
-.content{
-  margin-top: 60px;
-}
-i{
-  font-size: 40px;
-  cursor: pointer;
-  float: right;
+  color: black;
 }
 </style>

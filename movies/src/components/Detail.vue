@@ -1,19 +1,25 @@
 <template>
   <div class="pageContent">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <Header/>
     <div class="contentAll">
       <div class="detail">
         <img :src="getPic(results.img)" alt="">
         <h2>{{results.name}}</h2>
         <p>{{results.genre}} | {{results.type}} | {{results.duration}} min |
-          <a :href="getUrlFavo(results.id)" v-on:click="unFavorite" v-if='isfavorite === "true"'><i class="material-icons" style='color: #e4e227'>favorite</i></a>
-          <a :href="getUrlFavo(results.id)" v-on:click="Favorite" v-else><i class="material-icons">favorite</i></a>
+          <a :href="getUrlFavo(results.id)" v-on:click="unFavorite" v-if='isfavorite === "true"'><i class="material-icons">favorite</i></a>
+          <a :href="getUrlFavo(results.id)" v-on:click="Favorite" v-else><i class="material-icons">favorite_border</i></a>
         </p>
         <p id="description">{{results.description}}</p>
       </div>
-      <p class="button"><a :href="getUrlEdit(results.id)">Edit</a></p>
-      <p class="button delete"><a href="#" v-on:click="deleteClick">Delete</a></p>
+      <md-button :href="getUrlEdit(results.id)" class="md-raised md-primary">Edit</md-button>
+      <form novalidate @submit.stop.prevent="showSnackbar = true">
+        <md-button type="submit" class="md-raised md-accent">Delete</md-button>
+        <md-snackbar :md-position="center" :md-duration="4000" :md-active.sync="showSnackbar" md-persistent>
+          <span>Are you sure you want to delete this?</span>
+          <md-button class="md-accent" @click="showSnackbar = false">No</md-button>
+          <md-button class="md-primary" @click="showSnackbar = false" v-on:click="deleteClick">Yes</md-button>
+      </md-snackbar>
+    </form>
     </div>
     <div class="randoms">
       <div class="contentRandoms" v-for="random in randomFiltered">
@@ -37,7 +43,8 @@ export default {
     return {
       results: [],
       resultsRandom: [],
-      isfavorite: ''
+      isfavorite: '',
+      showSnackbar: false
     }
   },
   mounted () {
@@ -87,13 +94,10 @@ export default {
         })
     },
     deleteClick () {
-      let r = confirm("Are you sure you wan't to delete this?")
-      if (r === true) {
-        axios.post('http://cedricvleminckx.ikdoeict.be/delete/' + this.$route.params.id)
-          .then(response => {
-            this.$router.push('/')
-          })
-      }
+      axios.post('http://cedricvleminckx.ikdoeict.be/delete/' + this.$route.params.id)
+        .then(response => {
+          this.$router.push('/Home')
+        })
     },
     reload() {
       location.reload();
@@ -109,6 +113,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+a{
+  text-decoration: none;
+  color: white;
+}
 img{
   float: left;
   width: 270px;
@@ -117,30 +125,10 @@ img{
 }
 .detail{
   margin-top: 80px;
+  width: 80%;
 }
 #description{
   margin-top: 40px;
-}
-.button {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 10px 25px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    margin-top: 65px;
-    cursor: pointer;
-    float: right;
-}
-.button a{
-  text-decoration: none;
-  color: white;
-}
-.delete{
-  background-color: #f44336;
 }
 .randoms{
   display: inline-block;

@@ -1,6 +1,55 @@
 <template>
     <nav class="nav">
-      <ul>
+      <md-app>
+      <md-app-toolbar class="md-primary">
+        <md-button class="md-icon-button" @click="toggleMenu" v-if="!menuVisible">
+          <md-icon>menu</md-icon>
+        </md-button>
+        <span class="md-title" v-if="$route.path === '/Home'">Home page</span>
+        <span class="md-title" v-if="$route.path === '/Series'">Series</span>
+        <span class="md-title" v-if="$route.path === '/Movies'">Movies</span>
+        <span class="md-title" v-if="$route.path === '/Favorites'">Favorites</span>
+      </md-app-toolbar>
+
+      <md-app-drawer :md-active.sync="menuVisible" md-persistent="full">
+        <md-toolbar class="md-transparent" md-elevation="0">
+          <span>Navigation</span>
+
+          <div class="md-toolbar-section-end">
+            <md-button class="md-icon-button md-dense" @click="toggleMenu">
+              <md-icon>keyboard_arrow_left</md-icon>
+            </md-button>
+          </div>
+        </md-toolbar>
+
+        <md-list>
+          <md-list-item>
+            <md-icon>local_movies</md-icon>
+            <span class="md-list-item-text"><a @click="toggleMenu" href="#/Home">Home</a></span>
+          </md-list-item>
+
+          <md-list-item>
+            <md-icon>weekend</md-icon>
+            <span class="md-list-item-text"><a @click="toggleMenu" href="#/Series">Series</a></span>
+          </md-list-item>
+
+          <md-list-item>
+            <md-icon>movie</md-icon>
+            <span class="md-list-item-text"><a @click="toggleMenu" href="#/Movies">Movies</a></span>
+          </md-list-item>
+
+          <md-list-item>
+            <md-icon>favorite</md-icon>
+            <span class="md-list-item-text"><a @click="toggleMenu" href="#/Favorites">Favorites</a></span>
+          </md-list-item>
+        </md-list>
+      </md-app-drawer>
+
+      <md-app-content>
+        <router-view/>
+      </md-app-content>
+    </md-app>
+      <!--<ul>
         <li><a v-if="active === 'header'" id="home" href="/" class="activeH">Home</a> <a v-else id="home" href="/">Home</a></li>
         <li><a v-if="active === 'serie'" href="#/series" class="activeS">Series</a><a v-else href="#/series">Series</a></li>
         <li><a v-if="active === 'movie'" href="#/movies" class="activeM">Movies</a><a v-else href="#/movies">Movies</a></li>
@@ -20,7 +69,7 @@
           <option value="Comedy">Comedy</option>
           <option value="Thriller">Thriller</option>
         </select>
-      </ul>
+      </ul>-->
     </nav>
 </template>
 
@@ -30,7 +79,8 @@ export default {
     return {
       search: '',
       filter: '',
-      genre: ''
+      genre: '',
+      menuVisible: false
     }
   },
   props: {
@@ -47,6 +97,11 @@ export default {
       required: false
     }
   },
+  methods: {
+    toggleMenu () {
+      this.menuVisible = !this.menuVisible
+    }
+  },
   computed: {
     listen () {
       this.$emit('update', this.search)
@@ -59,30 +114,12 @@ export default {
     }
   }
 }
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.nav .activeH {
-    background-color: #2591ed;
-}
-.nav .activeS {
-    background-color: #ed2525;
-}
-.nav .activeM {
-    background-color: #31d51d;
-}
-.nav .activeF {
-    background-color: #e4e227;
-}
-select{
-  border: none;
-  height: 46.5px;
-  float: right;
-  margin-right: 5px;
-}
-select:focus{
-  border-bottom: solid #2591ed;
+.nav a{
+  text-decoration: none;
+  color: black;
 }
 </style>

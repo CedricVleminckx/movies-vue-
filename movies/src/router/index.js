@@ -6,39 +6,30 @@ import Movies from '@/components/Movies'
 import Favorites from '@/components/Favorites'
 import Detail from '@/components/Detail'
 import Edit from '@/components/Edit'
+import Header from '@/components/Header'
 
 Vue.use(Router)
 export default new Router({
   routes: [
-    {
-      path: '/',
-      name: 'Home',
-      component: Home
-    },
-    {
-      path: '/series',
-      name: 'Series',
-      component: Series
-    },
-    {
-      path: '/movies',
-      name: 'Movies',
-      component: Movies
-    },
-    {
-      path: '/favorites',
-      name: 'Favorites',
-      component: Favorites
-    },
-    {
-      path: '/detail/:id',
-      name: 'Detail',
-      component: Detail
-    },
-    {
-      path: '/edit/:id',
-      name: 'Edit',
-      component: Edit
+    { path: '/',
+    // You could also have named views at the top
+    component: Header,
+    children: [{
+        path: 'Home',
+        component: Home
+      }, {
+        path: 'Series',
+        component: Series
+      }, {
+        path: 'Movies',
+        component: Movies
+      }, {
+        path: 'Favorites',
+        component: Favorites
+      }, {
+        path: 'Detail/:id',
+        component: Detail
+      }]
     }
   ]
 })
