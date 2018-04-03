@@ -1,14 +1,32 @@
 <template>
     <nav class="nav">
       <md-app>
-      <md-app-toolbar class="md-primary">
-        <md-button class="md-icon-button" @click="toggleMenu" v-if="!menuVisible">
-          <md-icon>menu</md-icon>
-        </md-button>
-        <span class="md-title" v-if="$route.path === '/Home'">Home page</span>
-        <span class="md-title" v-if="$route.path === '/Series'">Series</span>
-        <span class="md-title" v-if="$route.path === '/Movies'">Movies</span>
-        <span class="md-title" v-if="$route.path === '/Favorites'">Favorites</span>
+      <md-app-toolbar class="md-default">
+        <div class="md-toolbar-section-start">
+          <md-button class="md-icon-button" @click="toggleMenu" v-if="!menuVisible">
+            <md-icon>menu</md-icon>
+          </md-button>
+          <span class="md-title" v-if="$route.path === '/Home'">Home page</span>
+          <span class="md-title" v-else-if="$route.path === '/Series'">Series</span>
+          <span class="md-title" v-else-if="$route.path === '/Movies'">Movies</span>
+          <span class="md-title" v-else-if="$route.path === '/Favorites'">Favorites</span>
+          <span class="md-title" v-else v-on="getRoute">{{ title }}</span>
+        </div>
+
+        <md-field class="search"  md-clearable>
+          <label>Search for movies/series</label>
+          <md-input v-model="search"></md-input>
+        </md-field>
+
+        <div class="md-toolbar-section-end">
+          <md-button v-on:click="refresh" class="md-icon-button">
+            <md-icon>refresh</md-icon>
+          </md-button>
+
+          <md-button class="md-icon-button">
+              <md-icon>view_module</md-icon>
+          </md-button>
+        </div>
       </md-app-toolbar>
 
       <md-app-drawer :md-active.sync="menuVisible" md-persistent="full">
@@ -46,14 +64,10 @@
       </md-app-drawer>
 
       <md-app-content>
-        <router-view/>
+        <router-view :search="search"/>
       </md-app-content>
     </md-app>
       <!--<ul>
-        <li><a v-if="active === 'header'" id="home" href="/" class="activeH">Home</a> <a v-else id="home" href="/">Home</a></li>
-        <li><a v-if="active === 'serie'" href="#/series" class="activeS">Series</a><a v-else href="#/series">Series</a></li>
-        <li><a v-if="active === 'movie'" href="#/movies" class="activeM">Movies</a><a v-else href="#/movies">Movies</a></li>
-        <li><a v-if="active === 'favorite'" href="#/favorites" class="activeF">Favorites</a><a v-else href="#/favorites">Favorites</a></li>
         <input v-if="isSearch" class="searchBox" v-on="listen" type="text" v-model="search" placeholder="Search media"/>
         <select v-if="isFilter" v-on="listenFilter" v-model="filter">
           <option value="" disabled selected>Select a filter</option>
@@ -74,43 +88,43 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data () {
     return {
       search: '',
+      title: '',
       filter: '',
       genre: '',
+      test:[],
       menuVisible: false
-    }
-  },
-  props: {
-    active: {
-      type: String,
-      required: false
-    },
-    isSearch: {
-      type: Boolean,
-      required: false
-    },
-    isFilter: {
-      type: Boolean,
-      required: false
     }
   },
   methods: {
     toggleMenu () {
       this.menuVisible = !this.menuVisible
+    },
+    refresh () {
+      location.reload();
     }
   },
   computed: {
     listen () {
-      this.$emit('update', this.search)
+      this.$emit('search', this.search)
     },
     listenFilter () {
       this.$emit('filter', this.filter)
     },
     listenGenre () {
       this.$emit('genre', this.genre)
+    },
+    getRoute () {
+      let id = this.$route.params.id;
+      axios.get('http://cedricvleminckx.ikdoeict.be/media/' + id)
+        .then(response => {
+          this.title = response.data.name
+        })
+        .catch(error => { console.log(error) })
     }
   }
 }
@@ -121,5 +135,8 @@ export default {
 .nav a{
   text-decoration: none;
   color: black;
+}
+.search{
+  width: 450px;
 }
 </style>

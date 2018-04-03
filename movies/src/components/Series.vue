@@ -40,6 +40,12 @@ export default {
       isList: false
     }
   },
+  props: {
+    search: {
+      type: String,
+      required: false
+    }
+  },
   mounted () {
     this.getMovies()
   },

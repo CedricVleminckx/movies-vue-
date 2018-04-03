@@ -41,8 +41,13 @@ export default {
     return {
       results: [],
       resultsBack: [],
-      search: '',
       isList: false,
+    }
+  },
+  props: {
+    search: {
+      type: String,
+      required: false
     }
   },
   mounted () {
@@ -140,7 +145,8 @@ export default {
   min-height: 450px;
   margin:4px;
   margin-right: 20px;
-  margin-top: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
   display: inline-block;
   vertical-align: top;
   float: left;
