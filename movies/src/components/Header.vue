@@ -13,7 +13,7 @@
           <span class="md-title" v-else v-on="getRoute">{{ title }}</span>
         </div>
 
-        <md-field class="search"  md-clearable>
+        <md-field class="search" md-clearable>
           <label>Search for movies/series</label>
           <md-input v-model="search"></md-input>
         </md-field>

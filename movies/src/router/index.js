@@ -29,6 +29,9 @@ export default new Router({
       }, {
         path: 'Detail/:id',
         component: Detail
+      }, {
+        path: 'Edit/:id',
+        component: Edit
       }]
     }
   ]

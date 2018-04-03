@@ -1,44 +1,55 @@
 <template>
   <div class="pageContent">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <Header/>
     <div class="contentAll">
       <div class="edit">
         <form v-on:submit.prevent="getFormValues">
           <img :src="getPic(results.img)" alt="">
-          <p>Name: <input type="text" v-model="results.name"></p>
-          <p>Genre:
-            <select v-model="results.genre">
-              <option>Action</option>
-              <option>Animation</option>
-              <option>Thriller</option>
-              <option>Comedy</option>
-            </select>
-          </p>
+          <md-field>
+            <label>Name</label>
+            <md-input v-model="results.name"></md-input>
+          </md-field>
 
-          <p>Type:
-            <select v-model="results.type">
-              <option>movie</option>
-              <option>serie</option>
-            </select>
-          </p>
+          <md-field>
+            <label>Genre</label>
+            <md-select v-model="results.genre">
+              <md-option value="Action">Action</md-option>
+              <md-option value="Animation">Animation</md-option>
+              <md-option value="Thriller">Thriller</md-option>
+              <md-option value="Comedy">Comedy</md-option>
+            </md-select>
+          </md-field>
 
-          <p>Favorite:
-            <select v-model="results.favorite">
-              <option>true</option>
-              <option>false</option>
-            </select>
-          </p>
+          <md-field>
+            <label>Type</label>
+            <md-select v-model="results.type">
+              <md-option value="movie">movie</md-option>
+              <md-option value="serie">serie</md-option>
+            </md-select>
+          </md-field>
 
-          <p id="dur">Duration in min: <input type="text" v-model="results.duration"></p><br/>
+          <md-field>
+            <label>Favorite</label>
+            <md-select v-model="results.favorite">
+              <md-option value="true">true</md-option>
+              <md-option value="false">false</md-option>
+            </md-select>
+          </md-field>
 
-          <p id="des">Description: </p>
-          <textarea name="name" rows="11" cols="70" v-model="results.description"></textarea>
+          <md-field>
+            <label>Duration</label>
+            <md-input v-model="results.duration"></md-input>
+          </md-field>
+
+          <md-field>
+            <label>Description</label>
+            <md-textarea v-model="results.description"></md-textarea>
+          </md-field>
         </form>
       </div>
 
-      <p class="button" v-on:click="editClick"><a>Save</a></p>
-      <p class="button delete" v-on:click="cancelClick"><a href="#">Cancel</a></p>
+      <md-button v-on:click="editClick" class="md-raised md-primary">Save</md-button>
+      <md-button v-on:click="cancelClick" href="#" class="md-raised md-accent">Cancel</md-button>
     </div>
   </div>
 </template>
@@ -53,7 +64,8 @@ export default {
   },
   data () {
     return {
-      results: []
+      results: [],
+      test: 'serie'
     }
   },
   mounted () {
@@ -97,50 +109,10 @@ img{
   height: 350px;
   margin-right: 40px;
 }
-p{
-   margin-bottom: 16px;
-}
-input[type=text], select{
-   border: none;
-   border-bottom: solid #2591ed;
-   height: 30px;
-}
-textarea{
-  display: inline-block;
-}
-p + p{
-  float: left;
-  margin-right: 20px;
-  display: inline-block;
-}
-#dur{
-  float: none;
-}
 .edit{
   margin-top: 80px;
 }
-.button {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 10px 25px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    margin-top: 20px;
-    cursor: pointer;
-    float: right;
-}
-.button:first-of-type{
-  margin-right: 53px;
-}
-.button a{
-  text-decoration: none;
-  color: white;
-}
-.delete{
-  background-color: #f44336;
+.md-field{
+  width: 200px;
 }
 </style>
