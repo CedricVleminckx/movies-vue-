@@ -11,9 +11,6 @@ export default {
 </script>
 
 <style>
-.contentAll{
-  margin-left: 13%;
-}
 .md-drawer {
   width: 300px;
   max-width: calc(100vw - 125px);

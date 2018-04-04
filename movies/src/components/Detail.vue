@@ -152,4 +152,7 @@ img{
   height: 280px;
   margin-left: 15%;
 }
+.contentAll{
+  margin-left: 13%;
+}
 </style>

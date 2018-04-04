@@ -1,7 +1,18 @@
 <template>
   <div class="pageContent">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <md-empty-state v-if="SearchMedia.length <= 0"
+      md-icon="search"
+      class="md-primary"
+      md-rounded
+      md-label="No results found"
+      md-description="Suggestions:
+      Make sure that all words are spelled correctly.
+      Try different keywords.
+      Try more general keywords.">
+    </md-empty-state>
     <div class="contentAll">
+
       <div class="content" v-for="media in SearchMedia" :key="media.index">
         <md-card>
           <md-card-media>
@@ -160,5 +171,8 @@ export default {
 .md-title a{
   text-decoration: none;
   color: black;
+}
+.contentAll{
+  margin-left: 13%;
 }
 </style>

@@ -5,46 +5,61 @@
       <div class="edit">
         <form v-on:submit.prevent="getFormValues">
           <img :src="getPic(results.img)" alt="">
-          <md-field>
-            <label>Name</label>
-            <md-input v-model="results.name"></md-input>
-          </md-field>
+          <div class="md-layout-item md-layout md-gutter">
+            <div class="md-layout-item md-size-22">
+              <md-field>
+                <label>Name</label>
+                <md-input v-model="results.name"></md-input>
+              </md-field>
+            </div>
+            <div class="md-layout-item">
+              <md-field>
+                <label>Genre</label>
+                <md-select v-model="results.genre">
+                  <md-option value="Action">Action</md-option>
+                  <md-option value="Animation">Animation</md-option>
+                  <md-option value="Thriller">Thriller</md-option>
+                  <md-option value="Comedy">Comedy</md-option>
+                </md-select>
+              </md-field>
+            </div>
+          </div>
 
-          <md-field>
-            <label>Genre</label>
-            <md-select v-model="results.genre">
-              <md-option value="Action">Action</md-option>
-              <md-option value="Animation">Animation</md-option>
-              <md-option value="Thriller">Thriller</md-option>
-              <md-option value="Comedy">Comedy</md-option>
-            </md-select>
-          </md-field>
+          <div class="md-layout-item md-layout md-gutter">
+            <div class="md-layout-item md-size-22">
+              <md-field>
+                <label>Type</label>
+                <md-select v-model="results.type">
+                  <md-option value="movie">movie</md-option>
+                  <md-option value="serie">serie</md-option>
+                </md-select>
+              </md-field>
+            </div>
+            <div class="md-layout-item md-size-22">
+              <md-field>
+                <label>Favorite</label>
+                <md-select v-model="results.favorite">
+                  <md-option value="true">true</md-option>
+                  <md-option value="false">false</md-option>
+                </md-select>
+              </md-field>
+            </div>
+            <div class="md-layout-item">
+              <md-field>
+                <label>Duration</label>
+                <md-input v-model="results.duration"></md-input>
+              </md-field>
+            </div>
+          </div>
 
-          <md-field>
-            <label>Type</label>
-            <md-select v-model="results.type">
-              <md-option value="movie">movie</md-option>
-              <md-option value="serie">serie</md-option>
-            </md-select>
-          </md-field>
-
-          <md-field>
-            <label>Favorite</label>
-            <md-select v-model="results.favorite">
-              <md-option value="true">true</md-option>
-              <md-option value="false">false</md-option>
-            </md-select>
-          </md-field>
-
-          <md-field>
-            <label>Duration</label>
-            <md-input v-model="results.duration"></md-input>
-          </md-field>
-
-          <md-field>
-            <label>Description</label>
-            <md-textarea v-model="results.description"></md-textarea>
-          </md-field>
+          <div class="md-layout-item md-layout md-gutter">
+            <div class="md-layout-item">
+              <md-field class="description">
+                <label>Description</label>
+                <md-textarea md-autogrow v-model="results.description"></md-textarea>
+              </md-field>
+            </div>
+          </div>
         </form>
       </div>
 
@@ -104,7 +119,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 img{
-   float: left;
+  float: left;
   width: 270px;
   height: 350px;
   margin-right: 40px;
@@ -114,5 +129,15 @@ img{
 }
 .md-field{
   width: 200px;
+}
+.description{
+  width: 700px;
+}
+.contentAll{
+  margin-left: 13%;
+  width: 70%;
+}
+.md-button{
+  float: right;
 }
 </style>
