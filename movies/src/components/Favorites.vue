@@ -25,10 +25,14 @@
           <md-card-expand>
             <md-card-actions md-alignment="space-between">
               <div>
-                <md-button class="md-icon-button">
+                <md-button :href="getUrlFavo()" v-on:click="unFavorite(media.id)" v-if='media.favorite === "true"' class="md-icon-button md-primary">
                   <md-icon>favorite</md-icon>
                 </md-button>
+                <md-button :href="getUrlFavo()" v-on:click="Favorite(media.id)" v-else class="md-icon-button md-primary">
+                  <md-icon>favorite_border</md-icon>
+                </md-button>
               </div>
+
               <md-button :href="getUrl(media.id)">Read more</md-button>
             </md-card-actions>
           </md-card-expand>
@@ -46,7 +50,6 @@ export default {
     return {
       results: [],
       resultsBack: [],
-      search: '',
       isList: false
     }
   },
@@ -82,11 +85,24 @@ export default {
     getUrl (id) {
       return '#/detail/' + id
     },
+    getUrlFavo () {
+      return '#/Favorites'
+    },
     getHeaderSearch (value) {
       this.search = value
     },
     getDescription (str) {
       return str.substring(0, 300) + '...'
+    },
+    unFavorite (id) {
+      axios.post('http://cedricvleminckx.ikdoeict.be/update/' + id, { favorite: 'false' })
+        .then(function (response) {
+        })
+    },
+    Favorite (id) {
+      axios.post('http://cedricvleminckx.ikdoeict.be/update/' + id, { favorite: 'true' })
+        .then(function (response) {
+        })
     },
     Filter () {
       if (this.filterAl === 'az'){

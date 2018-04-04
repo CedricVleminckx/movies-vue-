@@ -27,10 +27,10 @@
           <md-card-expand>
             <md-card-actions md-alignment="space-between">
               <div>
-                <md-button :href="getUrlFavo()" v-on:click="unFavorite(media.id)" v-if='media.favorite === "true"' class="md-icon-button">
+                <md-button :href="getUrlFavo()" v-on:click="unFavorite(media.id)" v-if='media.favorite === "true"' class="md-icon-button md-primary">
                   <md-icon>favorite</md-icon>
                 </md-button>
-                <md-button :href="getUrlFavo()" v-on:click="Favorite(media.id)" v-else class="md-icon-button">
+                <md-button :href="getUrlFavo()" v-on:click="Favorite(media.id)" v-else class="md-icon-button md-primary">
                   <md-icon>favorite_border</md-icon>
                 </md-button>
               </div>
