@@ -13,9 +13,9 @@
           <span class="md-title" v-else v-on="getRoute">{{ title }}</span>
         </div>
 
-        <md-field class="search" md-clearable>
+        <md-field class="search" md-clearable >
           <label>Search for movies/series</label>
-          <md-input v-model="search"></md-input>
+          <md-input v-model="search" :value="search" @keyup.enter=" updateSearch($event.target.value)"></md-input>
         </md-field>
 
         <div class="md-toolbar-section-end">
@@ -137,10 +137,10 @@ export default {
   data () {
     return {
       search: '',
+      history: '',
       title: '',
       filterAl: '',
       genre: '',
-      test:[],
       menuVisible: false
     }
   },
@@ -156,6 +156,10 @@ export default {
     },
     FilterGenre (value) {
       this.genre = value
+    },
+    updateSearch (value) {
+      this.search = value
+      this.$router.push('/Home');
     }
   },
   computed: {
