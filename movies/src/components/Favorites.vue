@@ -45,6 +45,14 @@ export default {
     search: {
       type: String,
       required: false
+    },
+    filterAl: {
+      type: String,
+      required: false
+    },
+    genre: {
+      type: String,
+      required: false
     }
   },
   mounted () {
@@ -71,49 +79,44 @@ export default {
     getDescription (str) {
       return str.substring(0, 300) + '...'
     },
-    filter (value) {
-      if (value === 'az'){
+    Filter () {
+      if (this.filterAl === 'az'){
         this.results.sort(function (a, b) {
           if (a.name < b.name) return -1
           if (a.name > b.name) return 1
           return 0
         })
       }
-      else if (value === 'za') {
+      else if (this.filterAl === 'za') {
         this.results.sort(function (a, b) {
           if (a.name < b.name) return 1
           if (a.name > b.name) return -1
           return 0
         })
       }
-      else if (value === 'fav') {
-        this.results.sort(function (a, b) {
-          if (a.favorite < b.favorite) return 1
-          if (a.favorite > b.favorite) return -1
-          return 0
-        })
-      }
     },
-    filterGenre (genre) {
-      if (genre === 'Action') {
-        this.results = this.resultsBack.filter(function (p) { return p.genre == genre })
+    FilterGenre () {
+      if (this.genre === 'Action') {
+        this.results = this.resultsBack.filter(function (p) { return p.genre == 'Action' })
       }
-      else if (genre === 'Animation') {
-        this.results = this.resultsBack.filter(function (p) { return p.genre == genre })
+      else if (this.genre === 'Animation') {
+        this.results = this.resultsBack.filter(function (p) { return p.genre == 'Animation' })
       }
-      else if (genre === 'Comedy') {
-        this.results = this.resultsBack.filter(function (p) { return p.genre == genre })
+      else if (this.genre === 'Comedy') {
+        this.results = this.resultsBack.filter(function (p) { return p.genre == 'Comedy' })
       }
-      else if (genre === 'Thriller') {
-        this.results = this.resultsBack.filter(function (p) { return p.genre == genre })
+      else if (this.genre === 'Thriller') {
+        this.results = this.resultsBack.filter(function (p) { return p.genre == 'Thriller' })
       }
-      else if (genre === 'All') {
+      else if (this.genre === 'All') {
         this.results = this.resultsBack
       }
     }
   },
   computed: {
     SearchMedia () {
+      this.FilterGenre()
+      this.Filter()
       return this.results.filter(media => {
         return media.name.toLowerCase().includes(this.search.toLowerCase())
       })

@@ -23,6 +23,50 @@
             <md-icon>refresh</md-icon>
           </md-button>
 
+          <md-menu md-align-trigger>
+            <md-button class="md-icon-button" md-menu-trigger>
+              <md-icon>filter_list</md-icon>
+            </md-button>
+
+            <md-menu-content>
+              <md-menu-item>
+                <md-button v-on:click="filterAlpha('az')" class="md-button" md-menu-trigger>A - Z</md-button>
+              </md-menu-item>
+
+              <md-menu-item>
+                <md-button v-on:click="filterAlpha('za')" class="md-button" md-menu-trigger>Z - A</md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+
+          <md-menu md-align-trigger>
+            <md-button class="md-icon-button" md-menu-trigger>
+              <md-icon>movie_filter</md-icon>
+            </md-button>
+
+            <md-menu-content>
+              <md-menu-item>
+                <md-button v-on:click="FilterGenre('All')" class="md-button" md-menu-trigger>All genres</md-button>
+              </md-menu-item>
+
+              <md-menu-item>
+                <md-button v-on:click="FilterGenre('Action')" class="md-button" md-menu-trigger>Action</md-button>
+              </md-menu-item>
+
+              <md-menu-item>
+                <md-button v-on:click="FilterGenre('Animation')" class="md-button" md-menu-trigger>Animation</md-button>
+              </md-menu-item>
+
+              <md-menu-item>
+                <md-button v-on:click="FilterGenre('Comedy')" class="md-button" md-menu-trigger>Comedy</md-button>
+              </md-menu-item>
+
+              <md-menu-item>
+                <md-button v-on:click="FilterGenre('Thriller')" class="md-button" md-menu-trigger>Thriller</md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+
           <md-button class="md-icon-button">
               <md-icon>view_module</md-icon>
           </md-button>
@@ -64,7 +108,7 @@
       </md-app-drawer>
 
       <md-app-content>
-        <router-view :search="search"/>
+        <router-view :search="search" :filterAl="filterAl" :genre="genre"/>
       </md-app-content>
     </md-app>
       <!--<ul>
@@ -94,7 +138,7 @@ export default {
     return {
       search: '',
       title: '',
-      filter: '',
+      filterAl: '',
       genre: '',
       test:[],
       menuVisible: false
@@ -106,18 +150,15 @@ export default {
     },
     refresh () {
       location.reload();
+    },
+    filterAlpha (value) {
+      this.filterAl = value
+    },
+    FilterGenre (value) {
+      this.genre = value
     }
   },
   computed: {
-    listen () {
-      this.$emit('search', this.search)
-    },
-    listenFilter () {
-      this.$emit('filter', this.filter)
-    },
-    listenGenre () {
-      this.$emit('genre', this.genre)
-    },
     getRoute () {
       let id = this.$route.params.id;
       axios.get('http://cedricvleminckx.ikdoeict.be/media/' + id)
