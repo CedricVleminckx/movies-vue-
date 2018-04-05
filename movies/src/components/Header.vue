@@ -67,8 +67,9 @@
             </md-menu-content>
           </md-menu>
 
-          <md-button class="md-icon-button">
-              <md-icon>view_module</md-icon>
+          <md-button @click="toggleGridList" class="md-icon-button">
+              <md-icon v-if="listView">view_list</md-icon>
+              <md-icon v-else>view_module</md-icon>
           </md-button>
         </div>
       </md-app-toolbar>
@@ -108,7 +109,7 @@
       </md-app-drawer>
 
       <md-app-content>
-        <router-view :search="search" :filterAl="filterAl" :genre="genre"/>
+        <router-view :search="search" :filterAl="filterAl" :genre="genre" :listView="listView"/>
       </md-app-content>
     </md-app>
       <!--<ul>
@@ -141,12 +142,16 @@ export default {
       title: '',
       filterAl: '',
       genre: '',
-      menuVisible: false
+      menuVisible: false,
+      listView: true,
     }
   },
   methods: {
     toggleMenu () {
       this.menuVisible = !this.menuVisible
+    },
+    toggleGridList () {
+      this.listView = !this.listView
     },
     refresh () {
       location.reload();

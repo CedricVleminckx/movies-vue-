@@ -4,7 +4,6 @@
     <md-empty-state v-if="SearchMedia.length <= 0"
       md-icon="search"
       class="md-primary"
-      md-rounded
       md-label="No results found"
       md-description="Suggestions:
       Make sure that all words are spelled correctly.
@@ -12,9 +11,8 @@
       Try more general keywords.">
     </md-empty-state>
     <div class="contentAll">
-
       <div class="content" v-for="media in SearchMedia" :key="media.index">
-        <md-card>
+        <md-card v-if="listView">
           <md-card-media>
             <a :href="getUrl(media.id)"><img class="movie" v-if="media.type === 'movie'" :src="getPic(media.img)" alt=""></a>
             <a :href="getUrl(media.id)"><img class="serie" v-if="media.type === 'serie'" :src="getPic(media.img)" alt=""></a>
@@ -38,6 +36,26 @@
               <md-button :href="getUrl(media.id)">Read more</md-button>
             </md-card-actions>
           </md-card-expand>
+        </md-card>
+
+        <md-card v-else class="list">
+          <md-card-media-actions>
+            <md-card-media>
+              <a :href="getUrl(media.id)"><img class="movie" v-if="media.type === 'movie'" :src="getPic(media.img)" alt=""></a>
+              <a :href="getUrl(media.id)"><img class="serie" v-if="media.type === 'serie'" :src="getPic(media.img)" alt=""></a>
+            </md-card-media>
+
+            <md-card-actions md-alignment>
+              <p class="md-title">{{ media.name }}</p>
+              <p>{{ media.description }}</p>
+              <div>
+                <md-button class="md-icon-button">
+                  <md-icon>favorite</md-icon>
+                </md-button>
+                <md-button :href="getUrl(media.id)">Read more</md-button>
+              </div>
+            </md-card-actions>
+          </md-card-media-actions>
         </md-card>
       </div>
     </div>
@@ -66,6 +84,10 @@ export default {
     },
     genre: {
       type: String,
+      required: false
+    },
+    listView: {
+      type: Boolean,
       required: false
     }
   },
@@ -171,6 +193,13 @@ export default {
 .md-title a{
   text-decoration: none;
   color: black;
+}
+.md-card-actions p{
+  width: 800px;
+}
+.list{
+  width: 85%;
+  min-height: 285px;
 }
 .contentAll{
   margin-left: 13%;
